@@ -32,7 +32,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ASCII Rose exact alignment and opacity */
         .rose-ascii {
             font-family: 'Space Mono', 'Courier New', monospace;
             font-size: 7px;
@@ -57,33 +56,18 @@
             text-underline-offset: 3px;
             text-decoration-thickness: 1px;
         }
-
-        /* Custom scrollbar for scattered gallery view */
-        ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #ffffff;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #e5e5e5;
-            border-radius: 3px;
-        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-neutral-100">
 
     <!-- HEADER / NAVIGATION -->
-    <header class="fixed top-0 left-0 w-full px-6 py-6 md:px-10 md:py-8 flex justify-between items-center z-50 text-[11px] sm:text-[12px] tracking-[0.05em] uppercase font-light bg-white/80 backdrop-blur-md">
+    <header class="fixed top-0 left-0 w-full px-6 py-6 md:px-10 md:py-8 flex justify-between items-center z-50 text-[11px] sm:text-[12px] tracking-[0.05em] uppercase font-light bg-white/90 backdrop-blur-sm">
         <div class="flex items-center space-x-6">
             <a href="#" id="brand-logo" class="hover:opacity-60 transition-opacity font-normal">
                 MIK ZAI
             </a>
             <div class="hidden sm:flex items-center space-x-3 text-neutral-400 text-[11px]">
-                <span id="nav-creative-space" class="text-neutral-900 border-b border-neutral-900 pb-0.5 cursor-pointer">Creative Space 1</span>
-                <span class="hover:text-neutral-900 cursor-pointer transition-colors" onclick="alert('Coming soon')">2</span>
-                <span class="hover:text-neutral-900 cursor-pointer transition-colors" onclick="alert('Coming soon')">3</span>
+                <span class="text-neutral-900 border-b border-neutral-900 pb-0.5 cursor-pointer">Creative Space 1</span>
             </div>
         </div>
         <button id="about-btn" class="hover:opacity-60 transition-opacity focus:outline-none">
@@ -94,14 +78,14 @@
     <!-- MAIN CONTAINER -->
     <main class="w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-10 pt-24 pb-16">
         
-        <!-- 1. SCATTERED / FLOATING GRID VIEW (Index) -->
+        <!-- 1. SCATTERED / FLOATING GRID VIEW -->
         <section id="scattered-view" class="w-full max-w-5xl mx-auto py-12">
-            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-6 sm:gap-8 items-center justify-items-center">
-                <!-- รูปภาพทั้งหมดจะถูกสร้าง JavaScript แทรกเข้ามาตรงนี้แบบสุ่มตำแหน่งและขนาดให้ดูอาร์ตๆ -->
+            <div id="grid-container" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-6 sm:gap-8 items-center justify-items-center">
+                <!-- JavaScript will inject images here -->
             </div>
         </section>
 
-        <!-- 2. SINGLE PHOTO DETAIL VIEW (เหมือนตัวอย่างที่ 2) -->
+        <!-- 2. SINGLE PHOTO DETAIL VIEW -->
         <section id="detail-view" class="hidden w-full max-w-3xl mx-auto flex flex-col items-center justify-center pt-6">
             <div class="w-full bg-[#f4f4f4] p-6 sm:p-12 flex items-center justify-center min-h-[50vh] sm:min-h-[65vh] mb-6 shadow-sm">
                 <img id="detail-img" src="" alt="Detail View" class="max-w-full max-h-[65vh] object-contain shadow-md" />
@@ -116,17 +100,13 @@
         <section id="about-view" class="hidden w-full max-w-2xl mx-auto pt-10">
             <div class="grid grid-cols-12 gap-4 sm:gap-8 items-start relative">
                 
-                <!-- Left Column: Bio Text -->
                 <div class="col-span-6 sm:col-span-7 text-[15px] sm:text-[16px] leading-[1.55] sm:leading-[1.65] font-light text-[#1a1a1a] tracking-[0.01em]">
                     <p>
                       Mik Zai is a Thailand photographer based in Bangkok whose practice is driven by an interest in people, identity, and visual expression. Working across portraiture and fashion, his approach is guided by an attention to atmosphere, subtle gestures, and the quiet details that shape an image.
                     </p>
                 </div>
 
-                <!-- Right Column: Contact & ASCII Rose -->
                 <div class="col-span-6 sm:col-span-5 relative pl-2 sm:pl-0">
-                    
-                    <!-- Contact Info -->
                     <div class="text-[15px] sm:text-[16px] leading-[1.55] sm:leading-[1.65] font-light text-[#1a1a1a] z-10 relative">
                         <span>Contact:</span><br/>
                         <a href="mailto:studio.mikzai@gmail.com" class="underline-active break-all hover:opacity-60 transition-opacity">
@@ -134,7 +114,6 @@
                         </a>
                     </div>
 
-                    <!-- ASCII Rose Overlay -->
                     <div class="rose-ascii absolute top-0 right-0 z-0 mt-4">
  ⠀⠀⠀⠀⠀ ⠀⠀⠀⣤⢔⣒⠂⣀⣀⣤⣄⣀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⣴⣿⠋⢠⣟⡼⣷⠼⣆⣼⢇⣿⣄⠱⣄
@@ -162,7 +141,6 @@
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠇⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠋⠀⠀⠀⠀⠀⠀⠀⠀    
                     </div>
-
                 </div>
 
             </div>
@@ -202,7 +180,8 @@
             { src: 'https://i.ibb.co/nNwVpcnv/IMG-2062.jpg', title: 'Series 27' }
         ];
 
-        const scatteredView = document.getElementById('scattered-view').querySelector('div');
+        const gridContainer = document.getElementById('grid-container');
+        const scatteredView = document.getElementById('scattered-view');
         const detailView = document.getElementById('detail-view');
         const aboutView = document.getElementById('about-view');
         
@@ -213,15 +192,13 @@
         const aboutText = document.getElementById('about-text');
         const brandLogo = document.getElementById('brand-logo');
 
-        let currentView = 'scattered'; // 'scattered', 'detail', 'about'
+        let currentView = 'scattered';
 
-        // Render scattered items
         function renderScatteredGrid() {
-            scatteredView.innerHTML = '';
-            portfolioImages.forEach((item, index) => {
+            gridContainer.innerHTML = '';
+            portfolioImages.forEach((item) => {
                 const wrapper = document.createElement('div');
-                // สุ่มดีไซน์ความเยื้องและความกว้างให้ดูอาร์ตกระจายตัวแบบแกลเลอรี
-                const randomRotation = (Math.random() * 6 - 3).toFixed(1); // เอียงเล็กน้อย -3 ถึง 3 องศา
+                const randomRotation = (Math.random() * 6 - 3).toFixed(1);
                 const randomMargin = Math.floor(Math.random() * 20);
                 
                 wrapper.className = `cursor-pointer transition-transform duration-300 hover:scale-105 hover:z-20 relative group`;
@@ -238,13 +215,13 @@
                     showDetail(item);
                 });
 
-                scatteredView.appendChild(wrapper);
+                gridContainer.appendChild(wrapper);
             });
         }
 
         function showScattered() {
             currentView = 'scattered';
-            document.getElementById('scattered-view').classList.remove('hidden');
+            scatteredView.classList.remove('hidden');
             detailView.classList.add('hidden');
             aboutView.classList.add('hidden');
             aboutText.classList.remove('underline-active');
@@ -252,7 +229,7 @@
 
         function showDetail(item) {
             currentView = 'detail';
-            document.getElementById('scattered-view').classList.add('hidden');
+            scatteredView.classList.add('hidden');
             detailView.classList.remove('hidden');
             aboutView.classList.add('hidden');
             
@@ -263,7 +240,7 @@
 
         function showAbout() {
             currentView = 'about';
-            document.getElementById('scattered-view').classList.add('hidden');
+            scatteredView.classList.add('hidden');
             detailView.classList.add('hidden');
             aboutView.classList.remove('hidden');
             aboutText.classList.add('underline-active');
@@ -283,7 +260,6 @@
             showScattered();
         });
 
-        // Initialize
         window.addEventListener('DOMContentLoaded', () => {
             renderScatteredGrid();
         });

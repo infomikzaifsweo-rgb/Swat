@@ -23,6 +23,7 @@
         }
     </script>
     <style>
+        /* Base typography for ultra-thin minimalist look */
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
             font-weight: 300;
@@ -30,6 +31,11 @@
             background-color: #ffffff;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Smooth crossfade for slideshow images */
+        .fade-img {
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* ASCII Rose exact alignment and opacity */
@@ -52,68 +58,44 @@
             }
         }
 
+        /* Minimal underline style for active link/email */
         .underline-active {
             text-decoration: underline;
             text-underline-offset: 3px;
             text-decoration-thickness: 1px;
-        }
-
-        /* Custom scrollbar for scattered gallery view */
-        ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #ffffff;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #e5e5e5;
-            border-radius: 3px;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-neutral-100">
 
     <!-- HEADER / NAVIGATION -->
-    <header class="fixed top-0 left-0 w-full px-6 py-6 md:px-10 md:py-8 flex justify-between items-center z-50 text-[11px] sm:text-[12px] tracking-[0.05em] uppercase font-light bg-white/80 backdrop-blur-md">
-        <div class="flex items-center space-x-6">
-            <a href="#" id="brand-logo" class="hover:opacity-60 transition-opacity font-normal">
-                MIK ZAI
-            </a>
-            <div class="hidden sm:flex items-center space-x-3 text-neutral-400 text-[11px]">
-                <span id="nav-creative-space" class="text-neutral-900 border-b border-neutral-900 pb-0.5 cursor-pointer">Creative Space 1</span>
-                <span class="hover:text-neutral-900 cursor-pointer transition-colors" onclick="alert('Coming soon')">2</span>
-                <span class="hover:text-neutral-900 cursor-pointer transition-colors" onclick="alert('Coming soon')">3</span>
-            </div>
-        </div>
+    <header class="fixed top-0 left-0 w-full px-6 py-6 md:px-10 md:py-8 flex justify-between items-center z-50 text-[11px] sm:text-[12px] tracking-[0.05em] uppercase font-light">
+        <a href="#" id="brand-logo" class="hover:opacity-60 transition-opacity">
+            MIK ZAI
+        </a>
         <button id="about-btn" class="hover:opacity-60 transition-opacity focus:outline-none">
             <span id="about-text" class="pb-0.5">ABOUT</span>
         </button>
     </header>
 
     <!-- MAIN CONTAINER -->
-    <main class="w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-10 pt-24 pb-16">
+    <main class="w-full min-h-screen flex items-center justify-center px-5 sm:px-10 pt-16 pb-12">
         
-        <!-- 1. SCATTERED / FLOATING GRID VIEW (Index) -->
-        <section id="scattered-view" class="w-full max-w-5xl mx-auto py-12">
-            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-6 sm:gap-8 items-center justify-items-center">
-                <!-- รูปภาพทั้งหมดจะถูกสร้าง JavaScript แทรกเข้ามาตรงนี้แบบสุ่มตำแหน่งและขนาดให้ดูอาร์ตๆ -->
+        <!-- 1. GALLERY VIEW -->
+        <section id="gallery-view" class="w-full flex flex-col items-center justify-center cursor-pointer select-none">
+            <!-- Dynamic frame: fixed standard size for portrait, expands nicely to fit full width for landscape -->
+            <div id="image-frame" class="relative w-[210px] sm:w-[250px] aspect-[3/4] flex items-center justify-center overflow-hidden bg-neutral-50 transition-all duration-300">
+                <img id="slideshow-img" 
+                     src="" 
+                     alt="Mik Zai Portfolio" 
+                     class="w-full h-full object-cover fade-img opacity-0" />
             </div>
         </section>
 
-        <!-- 2. SINGLE PHOTO DETAIL VIEW (เหมือนตัวอย่างที่ 2) -->
-        <section id="detail-view" class="hidden w-full max-w-3xl mx-auto flex flex-col items-center justify-center pt-6">
-            <div class="w-full bg-[#f4f4f4] p-6 sm:p-12 flex items-center justify-center min-h-[50vh] sm:min-h-[65vh] mb-6 shadow-sm">
-                <img id="detail-img" src="" alt="Detail View" class="max-w-full max-h-[65vh] object-contain shadow-md" />
-            </div>
-            <div class="text-center">
-                <h3 id="detail-title" class="text-[13px] sm:text-[14px] tracking-[0.05em] uppercase font-normal text-neutral-900 mb-1">Title</h3>
-                <p class="text-[11px] sm:text-[12px] text-neutral-400 tracking-wider">Photography &middot; Editorial Overview</p>
-            </div>
-        </section>
+        <!-- 2. ABOUT VIEW -->
+        <section id="about-view" class="hidden w-full max-w-2xl mx-auto -mt-30 sm:-mt-42 pt-0">
 
-        <!-- 3. ABOUT VIEW -->
-        <section id="about-view" class="hidden w-full max-w-2xl mx-auto pt-10">
+            <!-- 2-column horizontal flex/grid in same row -->
             <div class="grid grid-cols-12 gap-4 sm:gap-8 items-start relative">
                 
                 <!-- Left Column: Bio Text -->
@@ -135,7 +117,7 @@
                     </div>
 
                     <!-- ASCII Rose Overlay -->
-                    <div class="rose-ascii absolute top-0 right-0 z-0 mt-4">
+                    <div class="rose-ascii absolute top-0 right-0 z-0">
  ⠀⠀⠀⠀⠀ ⠀⠀⠀⣤⢔⣒⠂⣀⣀⣤⣄⣀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⣴⣿⠋⢠⣟⡼⣷⠼⣆⣼⢇⣿⣄⠱⣄
 ⠀⠀⠀⠀⠀⠀⠀⠹⣿⡀⣆⠙⠢⠐⠉⠉⣴⣾⣽⢟⡰⠃
@@ -170,109 +152,152 @@
 
     </main>
 
-    <!-- INTERACTION LOGIC -->
+    <!-- SLIDESHOW & NAVIGATION LOGIC -->
     <script>
+        // Ordered photo collection with automatic aspect-ratio switcher
         const portfolioImages = [
-            { src: 'https://i.ibb.co/vx7F3nNS/B67-A0830-C7-A3-4685-B065-F328488-ED3-EC.jpg', title: 'Editorial 01' },
-            { src: 'https://i.ibb.co/HL8KQ5Px/367-FDAEA-4812-42-A1-A8-A7-932-F439-DCAFE.jpg', title: 'Portrait Study' },
-            { src: 'https://i.ibb.co/vxz4mZFc/IMG-3479.jpg', title: 'Studio Fragment' },
-            { src: 'https://i.ibb.co/k6VWKFmt/IMG-1978.jpg', title: 'Series 04' },
-            { src: 'https://i.ibb.co/fdpHjsXm/IMG-1980.jpg', title: 'Series 05' },
-            { src: 'https://i.ibb.co/tMFJKsh2/IMG-1982.jpg', title: 'Series 06' },
-            { src: 'https://i.ibb.co/XZLB79xn/IMG-1977.jpg', title: 'Series 07' },
-            { src: 'https://i.ibb.co/7N60QYsf/IMG-1989.jpg', title: 'Series 08' },
-            { src: 'https://i.ibb.co/b5MFq6Rb/IMG-1983.jpg', title: 'Series 09' },
-            { src: 'https://i.ibb.co/vvCtz7vV/IMG-1984.jpg', title: 'Series 10' },
-            { src: 'https://i.ibb.co/ZztrbyNf/IMG-2016.jpg', title: 'Series 11' },
-            { src: 'https://i.ibb.co/wFvBNvyR/IMG-1985.jpg', title: 'Series 12' },
-            { src: 'https://i.ibb.co/DPyCKWMy/IMG-2018.jpg', title: 'Series 13' },
-            { src: 'https://i.ibb.co/YH7DJSC/IMG-2017.jpg', title: 'Series 14' },
-            { src: 'https://i.ibb.co/xq5rN8b5/IMG-2022.jpg', title: 'Series 15' },
-            { src: 'https://i.ibb.co/vxFd22J4/IMG-2021.jpg', title: 'Series 16' },
-            { src: 'https://i.ibb.co/HpMNRXV2/IMG-2023.jpg', title: 'Series 17' },
-            { src: 'https://i.ibb.co/LXx8Yb7D/IMG-2027.jpg', title: 'Series 18' },
-            { src: 'https://i.ibb.co/q3k8RJcf/IMG-2034.jpg', title: 'Series 19' },
-            { src: 'https://i.ibb.co/TBxwW0g0/IMG-2035.jpg', title: 'Series 20' },
-            { src: 'https://i.ibb.co/yFm3JzBL/IMG-2037.jpg', title: 'Series 21' },
-            { src: 'https://i.ibb.co/RG8vm5Lq/IMG-2052.jpg', title: 'Series 22' },
-            { src: 'https://i.ibb.co/dwsjFnTy/IMG-2051.jpg', title: 'Series 23' },
-            { src: 'https://i.ibb.co/wFdqxVV4/IMG-2056.jpg', title: 'Series 24' },
-            { src: 'https://i.ibb.co/MDL24YTv/IMG-2057.jpg', title: 'Series 25' },
-            { src: 'https://i.ibb.co/dJfbwS82/IMG-2059.jpg', title: 'Series 26' },
-            { src: 'https://i.ibb.co/nNwVpcnv/IMG-2062.jpg', title: 'Series 27' }
+            'https://i.ibb.co/vx7F3nNS/B67-A0830-C7-A3-4685-B065-F328488-ED3-EC.jpg',
+            'https://i.ibb.co/HL8KQ5Px/367-FDAEA-4812-42-A1-A8-A7-932-F439-DCAFE.jpg',
+            'https://i.ibb.co/vxz4mZFc/IMG-3479.jpg',
+            'https://i.ibb.co/k6VWKFmt/IMG-1978.jpg',
+            'https://i.ibb.co/fdpHjsXm/IMG-1980.jpg',
+            'https://i.ibb.co/tMFJKsh2/IMG-1982.jpg',
+            'https://i.ibb.co/XZLB79xn/IMG-1977.jpg',
+            'https://i.ibb.co/7N60QYsf/IMG-1989.jpg',
+            'https://i.ibb.co/b5MFq6Rb/IMG-1983.jpg',
+            'https://i.ibb.co/vvCtz7vV/IMG-1984.jpg',
+            'https://i.ibb.co/ZztrbyNf/IMG-2016.jpg',
+            'https://i.ibb.co/wFvBNvyR/IMG-1985.jpg',
+            'https://i.ibb.co/DPyCKWMy/IMG-2018.jpg',
+            'https://i.ibb.co/YH7DJSC/IMG-2017.jpg',
+            'https://i.ibb.co/xq5rN8b5/IMG-2022.jpg',
+            'https://i.ibb.co/vxFd22J4/IMG-2021.jpg',
+            'https://i.ibb.co/HpMNRXV2/IMG-2023.jpg',
+            'https://i.ibb.co/LXx8Yb7D/IMG-2027.jpg',
+            'https://i.ibb.co/q3k8RJcf/IMG-2034.jpg',
+            'https://i.ibb.co/TBxwW0g0/IMG-2035.jpg',
+            'https://i.ibb.co/yFm3JzBL/IMG-2037.jpg',
+            'https://i.ibb.co/RG8vm5Lq/IMG-2052.jpg',
+            'https://i.ibb.co/dwsjFnTy/IMG-2051.jpg',
+            'https://i.ibb.co/wFdqxVV4/IMG-2056.jpg',
+            'https://i.ibb.co/MDL24YTv/IMG-2057.jpg',
+            'https://i.ibb.co/dJfbwS82/IMG-2059.jpg',
+            'https://i.ibb.co/nNwVpcnv/IMG-2062.jpg'
         ];
 
-        const scatteredView = document.getElementById('scattered-view').querySelector('div');
-        const detailView = document.getElementById('detail-view');
+        let currentIndex = 0;
+        let isChanging = false;
+        let slideshowTimer = null;
+        let isAboutPage = false;
+
+        // Elements
+        const imgElement = document.getElementById('slideshow-img');
+        const imageFrame = document.getElementById('image-frame');
+        const galleryView = document.getElementById('gallery-view');
         const aboutView = document.getElementById('about-view');
-        
-        const detailImg = document.getElementById('detail-img');
-        const detailTitle = document.getElementById('detail-title');
-        
         const aboutBtn = document.getElementById('about-btn');
         const aboutText = document.getElementById('about-text');
         const brandLogo = document.getElementById('brand-logo');
 
-        let currentView = 'scattered'; // 'scattered', 'detail', 'about'
-
-        // Render scattered items
-        function renderScatteredGrid() {
-            scatteredView.innerHTML = '';
-            portfolioImages.forEach((item, index) => {
-                const wrapper = document.createElement('div');
-                // สุ่มดีไซน์ความเยื้องและความกว้างให้ดูอาร์ตกระจายตัวแบบแกลเลอรี
-                const randomRotation = (Math.random() * 6 - 3).toFixed(1); // เอียงเล็กน้อย -3 ถึง 3 องศา
-                const randomMargin = Math.floor(Math.random() * 20);
-                
-                wrapper.className = `cursor-pointer transition-transform duration-300 hover:scale-105 hover:z-20 relative group`;
-                wrapper.style.transform = `rotate(${randomRotation}deg)`;
-                wrapper.style.marginTop = `${randomMargin}px`;
-
-                wrapper.innerHTML = `
-                    <div class="bg-white p-2 shadow-sm border border-neutral-100 transition-shadow group-hover:shadow-md">
-                        <img src="${item.src}" alt="${item.title}" class="w-full h-auto max-h-[180px] sm:max-h-[220px] object-cover block" loading="lazy" />
-                    </div>
-                `;
-
-                wrapper.addEventListener('click', () => {
-                    showDetail(item);
-                });
-
-                scatteredView.appendChild(wrapper);
+        // Preload images for seamless image switching
+        function preloadImages() {
+            portfolioImages.forEach(src => {
+                const img = new Image();
+                img.src = src;
             });
         }
 
-        function showScattered() {
-            currentView = 'scattered';
-            document.getElementById('scattered-view').classList.remove('hidden');
-            detailView.classList.add('hidden');
-            aboutView.classList.add('hidden');
-            aboutText.classList.remove('underline-active');
+        // Adjust frame styling dynamically based on image dimensions
+        function updateImageFrame(img) {
+            const width = img.naturalWidth;
+            const height = img.naturalHeight;
+            const isLandscape = width > height;
+
+            if (isLandscape) {
+                // Landscape styling: full width container, containment view
+                imageFrame.className = "relative w-[320px] sm:w-[420px] aspect-[4/3] flex items-center justify-center overflow-hidden bg-neutral-50 transition-all duration-300";
+                imgElement.className = "w-full h-full object-contain fade-img opacity-0";
+            } else {
+                // Portrait styling: standard size
+                imageFrame.className = "relative w-[210px] sm:w-[250px] aspect-[3/4] flex items-center justify-center overflow-hidden bg-neutral-50 transition-all duration-300";
+                imgElement.className = "w-full h-full object-cover fade-img opacity-0";
+            }
         }
 
-        function showDetail(item) {
-            currentView = 'detail';
-            document.getElementById('scattered-view').classList.add('hidden');
-            detailView.classList.remove('hidden');
-            aboutView.classList.add('hidden');
-            
-            detailImg.src = item.src;
-            detailTitle.textContent = item.title;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Change slide with fade effect
+        function changeSlide(nextIndex) {
+            if (isChanging) return;
+            isChanging = true;
+
+            imgElement.classList.remove('opacity-100');
+            imgElement.classList.add('opacity-0');
+
+            setTimeout(() => {
+                currentIndex = (nextIndex !== undefined) ? nextIndex : (currentIndex + 1) % portfolioImages.length;
+                
+                const tempImg = new Image();
+                tempImg.src = portfolioImages[currentIndex];
+                tempImg.onload = () => {
+                    imgElement.src = tempImg.src;
+                    updateImageFrame(tempImg);
+
+                    imgElement.classList.remove('opacity-0');
+                    imgElement.classList.add('opacity-100');
+                    isChanging = false;
+                };
+
+                // Fallback
+                setTimeout(() => {
+                    if (isChanging) {
+                        imgElement.src = portfolioImages[currentIndex];
+                        imgElement.classList.remove('opacity-0');
+                        imgElement.classList.add('opacity-100');
+                        isChanging = false;
+                    }
+                }, 300);
+
+            }, 350);
         }
 
+        // Timer control
+        function startTimer() {
+            stopTimer();
+            slideshowTimer = setInterval(() => {
+                changeSlide();
+            }, 5000);
+        }
+
+        function stopTimer() {
+            if (slideshowTimer) clearInterval(slideshowTimer);
+        }
+
+        // Manual photo click to switch image
+        galleryView.addEventListener('click', () => {
+            changeSlide();
+            startTimer();
+        });
+
+        // View toggles
         function showAbout() {
-            currentView = 'about';
-            document.getElementById('scattered-view').classList.add('hidden');
-            detailView.classList.add('hidden');
+            isAboutPage = true;
+            galleryView.classList.add('hidden');
             aboutView.classList.remove('hidden');
             aboutText.classList.add('underline-active');
+            stopTimer();
+        }
+
+        function showGallery() {
+            isAboutPage = false;
+            aboutView.classList.add('hidden');
+            galleryView.classList.remove('hidden');
+            aboutText.classList.remove('underline-active');
+            startTimer();
         }
 
         aboutBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            if (currentView === 'about') {
-                showScattered();
+            if (isAboutPage) {
+                showGallery();
             } else {
                 showAbout();
             }
@@ -280,12 +305,22 @@
 
         brandLogo.addEventListener('click', (e) => {
             e.preventDefault();
-            showScattered();
+            showGallery();
         });
 
-        // Initialize
+        // Initialization
         window.addEventListener('DOMContentLoaded', () => {
-            renderScatteredGrid();
+            preloadImages();
+            
+            const initialImg = new Image();
+            initialImg.src = portfolioImages[0];
+            initialImg.onload = () => {
+                imgElement.src = initialImg.src;
+                updateImageFrame(initialImg);
+                imgElement.classList.remove('opacity-0');
+                imgElement.classList.add('opacity-100');
+                startTimer();
+            };
         });
     </script>
 </body>
